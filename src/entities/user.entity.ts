@@ -5,19 +5,12 @@ import { BaseEntity } from './base.entity';
   name: 'users',
 })
 export class UserEntity extends BaseEntity {
-  @Column({
-    name: 'first_name',
-  })
-  firstName: string;
+  @Column()
+  email: string;
 
-  @Column({
-    name: 'last_name',
-  })
-  lastName: string;
+  @Column()
+  password: string;
 
-  @Column({
-    default: false,
-    name: 'is_active',
-  })
-  isActive: boolean;
+  @Column()
+  name: string;
 }
