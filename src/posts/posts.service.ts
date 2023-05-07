@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post-dto';
-import { PostEntity } from 'src/entities/post.entity';
+import { Post } from 'src/entities/post.entity';
 import { Repository } from 'typeorm';
 import { UpdatePostDto } from './dto/update-post-dto';
 
 @Injectable()
 export class PostsService {
   constructor(
-    @Inject('POST_REPOSITORY') private postRepository: Repository<PostEntity>,
+    @Inject('POST_REPOSITORY') private postRepository: Repository<Post>,
   ) {}
 
   async getListPosts() {
@@ -19,21 +19,20 @@ export class PostsService {
   }
 
   async findPostById(id: string) {
-    return await this.postRepository.findBy({id});
+    return await this.postRepository.findBy({ id });
   }
 
   async updatePostById(id: string, data: UpdatePostDto) {
-    await this.postRepository.update(id, data) 
+    await this.postRepository.update(id, data);
     return {
-      result: "success"
-    }
+      result: 'success',
+    };
   }
 
   async deletePostById(id: string) {
-    await this.postRepository.softDelete(id)
+    await this.postRepository.softDelete(id);
     return {
-      result: "success"
-    }
+      result: 'success',
+    };
   }
 }
-

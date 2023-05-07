@@ -10,15 +10,17 @@ async function bootstrap() {
 
   // Swagger configuration
   const swaggerConfig = new DocumentBuilder()
-  .setTitle('Nest API Documentation')
-  .setDescription('The description of the API documentation')
-  .setVersion('1.0.0')
-  .build();
+    .setTitle('Nest API Documentation')
+    .setDescription('The description of the API documentation')
+    .setVersion('1.0.0')
+    .build();
   const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
   SwaggerModule.setup('/', app, swaggerDocument);
 
   // Error handler
-  app.useGlobalFilters(new AppExceptionFilter(new Logger(), HTTP_STATUS, TIME_ZONE.ASIA_TOKYO));
+  app.useGlobalFilters(
+    new AppExceptionFilter(new Logger(), HTTP_STATUS, TIME_ZONE.ASIA_TOKYO),
+  );
   app.useGlobalInterceptors(new ExceptionInterceptor());
 
   await app.listen(3000);

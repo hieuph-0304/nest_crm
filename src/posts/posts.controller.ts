@@ -1,11 +1,25 @@
-import { Body, Controller, Delete, Get, HttpStatus, Param, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Put,
+} from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post-dto';
 import { Response } from 'src/common/Response';
 import { Paging } from 'src/common/paging';
 import { UpdatePostDto } from './dto/update-post-dto';
-import { ApiCreatedResponse, ApiNotFoundResponse, ApiOkResponse, ApiTags } from '@nestjs/swagger';
-import { PostEntity } from 'src/entities/post.entity';
+import {
+  ApiCreatedResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiTags,
+} from '@nestjs/swagger';
+import { Post as PostEntity } from 'src/entities/post.entity';
 import { ApiException } from 'nestjs-error-handler';
 
 @ApiTags('posts')
@@ -13,7 +27,7 @@ import { ApiException } from 'nestjs-error-handler';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @ApiOkResponse({type: PostEntity, isArray: true})
+  @ApiOkResponse({ type: PostEntity, isArray: true })
   @Get()
   async findAll() {
     const posts = await this.postsService.getListPosts();
@@ -22,23 +36,23 @@ export class PostsController {
     return new Response(200, posts, 'Get list posts successfully', pagingRes);
   }
 
-  @ApiCreatedResponse({type: PostEntity})
+  @ApiCreatedResponse({ type: PostEntity })
   @Post()
   async create(@Body() data: CreatePostDto) {
     return await this.postsService.createPost(data);
   }
 
-  @ApiOkResponse({type: PostEntity, description: "Get post by id"})
+  @ApiOkResponse({ type: PostEntity, description: 'Get post by id' })
   @ApiNotFoundResponse()
   @Get(':id')
   async findOne(@Param('id') id: string) {
     const post = await this.postsService.findPostById(id);
 
-    if(!post) {
+    if (!post) {
       throw new ApiException('Error', HttpStatus.NOT_FOUND);
     }
 
-    return post 
+    return post;
   }
 
   @Put(':id')
