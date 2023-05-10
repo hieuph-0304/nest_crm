@@ -1,14 +1,18 @@
 import { Module } from '@nestjs/common';
-import { PostsModule } from './posts/posts.module';
+import { PostModule } from './posts/posts.module';
 import { HealthModule } from './health/health.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { MysqlDataSource } from '../database/database.config';
+import { GlobalModule } from './global/global.module';
+import { CommonModule } from './global/common/common.module';
 
 @Module({
   imports: [
-    PostsModule,
+    PostModule,
     HealthModule,
+    CommonModule,
+    GlobalModule,
     TypeOrmModule.forRoot(MysqlDataSource.options),
   ],
 })
-export class AppModule { }
+export class AppModule {}

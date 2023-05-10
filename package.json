@@ -39,6 +39,7 @@
     "cross-var": "^1.1.0",
     "moment-timezone": "^0.5.43",
     "mysql2": "^3.2.4",
+    "nestjs-convert-to-curl": "0.0.15",
     "nestjs-error-handler": "0.0.3",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.2.0",

@@ -1,13 +1,17 @@
-import { Injectable } from '@nestjs/common';
+import { HttpStatus, Injectable } from '@nestjs/common';
 import { Repository } from 'typeorm';
 import { Employee } from 'src/entities/employee.entity';
 import { ContactInfo } from 'src/entities/contact-info.entity';
 import { Meeting } from 'src/entities/meeting.entity';
 import { Task } from 'src/entities/task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
+import { ApiException } from 'src/utils/exception';
+
+import { ILoggerService } from '../global/logger/logger.adapter';
+import { IHealthService } from './health.adapter';
 
 @Injectable()
-export class HealthService {
+export class HealthService implements IHealthService {
   constructor(
     @InjectRepository(Employee)
     private readonly employeeRepository: Repository<Employee>,
@@ -16,7 +20,22 @@ export class HealthService {
     @InjectRepository(Task) private readonly taskRepository: Repository<Task>,
     @InjectRepository(Meeting)
     private readonly mettingRepository: Repository<Meeting>,
+    private readonly loggerService: ILoggerService,
   ) {}
+
+  async getText(): Promise<string> {
+    const appName = `Nest API UP!!`;
+    this.loggerService.log(
+      appName,
+      `${HealthService.name}/${this.getText.name}`,
+    );
+
+    return appName;
+  }
+
+  async getError(): Promise<unknown> {
+    throw new ApiException('Error message', HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 
   async seed() {
     // employee 1: CEO

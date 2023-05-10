@@ -4,9 +4,10 @@ import { Post } from 'src/entities/post.entity';
 import { Repository } from 'typeorm';
 import { UpdatePostDto } from './dto/update-post-dto';
 import { InjectRepository } from '@nestjs/typeorm';
+import { IPostService } from './post.adapter';
 
 @Injectable()
-export class PostsService {
+export class PostService implements IPostService<Post> {
   constructor(
     @InjectRepository(Post) private readonly postRepository: Repository<Post>,
   ) {}

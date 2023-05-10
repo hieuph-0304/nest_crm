@@ -1,28 +1,65 @@
+import { RequestMethod } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './modules/app.module';
-import { AppExceptionFilter, ExceptionInterceptor } from 'nestjs-error-handler';
-import { Logger } from '@nestjs/common';
-import { HTTP_STATUS, TIME_ZONE } from './common/constants';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import { LogAxiosErrorInterceptor } from 'nestjs-convert-to-curl';
+import { AppExceptionFilter } from './filters/http-exception.filter';
+import { AppModule } from './modules/app.module';
+import { ApiException } from './utils/exception';
+
+import { ILoggerService } from './modules/global/logger/logger.adapter';
+import { ISecretsService } from './modules/global/secrets/secrets.adapter';
+import { ExceptionInterceptor } from './interceptors/http-exception.interceptor';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    bufferLogs: true,
+  });
 
-  // Swagger configuration
-  const swaggerConfig = new DocumentBuilder()
+  const loggerService = app.get(ILoggerService);
+
+  app.useGlobalFilters(new AppExceptionFilter(loggerService));
+  app.useGlobalInterceptors(
+    new ExceptionInterceptor(),
+    new LogAxiosErrorInterceptor(),
+  );
+
+  const { ENV, PORT } = app.get(ISecretsService);
+
+  app.useLogger(loggerService);
+
+  app.setGlobalPrefix('api', {
+    exclude: [
+      { path: 'health', method: RequestMethod.GET },
+      { path: 'health-error', method: RequestMethod.GET },
+    ],
+  });
+
+  const config = new DocumentBuilder()
     .setTitle('Nest API Documentation')
     .setDescription('The description of the API documentation')
     .setVersion('1.0.0')
+    .addTag('API Documentation')
     .build();
-  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup('/', app, swaggerDocument);
 
-  // Error handler
-  app.useGlobalFilters(
-    new AppExceptionFilter(new Logger(), HTTP_STATUS, TIME_ZONE.ASIA_TOKYO),
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup('docs', app, document);
+
+  loggerService.log(
+    `🟢 API listening at ${PORT} on ${ENV?.toUpperCase()} 🟢\n`,
+    'Application',
   );
-  app.useGlobalInterceptors(new ExceptionInterceptor());
 
-  await app.listen(3000);
+  await app.listen(PORT);
+
+  loggerService.log(
+    `🔵 Swagger listening at ${await app.getUrl()}/docs 🔵 \n`,
+    'Swaggger',
+  );
+
+  process.on('unhandledRejection', (error: ApiException) => {
+    error.context = 'unhandledRejection';
+    loggerService.error(error);
+  });
 }
+
 bootstrap();
