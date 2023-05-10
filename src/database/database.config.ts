@@ -9,7 +9,7 @@ export const MysqlDataSource = new DataSource({
   database: 'nestjs_crm',
   entities: [__dirname + '/../**/*.entity{.ts,.js}'],
   logging: 'all',
-  synchronize: true, // synchronize = true => database schema should be auto created on every application launch.
+  synchronize: false, // synchronize = true => database schema should be auto created on every application launch.
   migrationsRun: false, // migrationsRun = true => should be auto run on every application launch
   migrations: [__dirname + '/../migrations/*{.ts,.js}'],
   migrationsTableName: 'migration_history', // Migrations table name, default = "migrations".

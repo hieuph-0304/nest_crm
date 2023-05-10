@@ -10,7 +10,7 @@ import {
 } from '@nestjs/common';
 import { PostsService } from './posts.service';
 import { CreatePostDto } from './dto/create-post-dto';
-import { Response } from 'src/common/Response';
+import { Response } from 'src/common/response';
 import { Paging } from 'src/common/paging';
 import { UpdatePostDto } from './dto/update-post-dto';
 import {

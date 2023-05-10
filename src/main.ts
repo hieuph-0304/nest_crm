@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { AppModule } from './modules/app.module';
 import { AppExceptionFilter, ExceptionInterceptor } from 'nestjs-error-handler';
 import { Logger } from '@nestjs/common';
 import { HTTP_STATUS, TIME_ZONE } from './common/constants';

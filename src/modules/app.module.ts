@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { PostsModule } from './posts/posts.module';
 import { HealthModule } from './health/health.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { MysqlDataSource } from './database/database.config';
+import { MysqlDataSource } from '../database/database.config';
 
 @Module({
   imports: [
@@ -11,4 +11,4 @@ import { MysqlDataSource } from './database/database.config';
     TypeOrmModule.forRoot(MysqlDataSource.options),
   ],
 })
-export class AppModule {}
+export class AppModule { }
