@@ -30,7 +30,6 @@ export class Employee extends Base {
   @OneToOne(() => ContactInfo, (contactInfo) => contactInfo.employee)
   contactInfo: ContactInfo;
 
-  // {onDelete: "SET NULL"}:
   @OneToMany(() => Task, (task) => task.employee)
   tasks: Task[];
 
