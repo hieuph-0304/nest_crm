@@ -7,7 +7,6 @@ import { ContactInfo } from 'src/entities/contact-info.entity';
 import { Task } from 'src/entities/task.entity';
 import { Meeting } from 'src/entities/meeting.entity';
 import { HealthController } from './health.controller';
-import { IHealthService } from './health.adapter';
 
 @Module({
   imports: [
@@ -15,12 +14,6 @@ import { IHealthService } from './health.adapter';
     TypeOrmModule.forFeature([Employee, ContactInfo, Task, Meeting]),
   ],
   controllers: [HealthController],
-  providers: [
-    {
-      provide: IHealthService,
-      useClass: HealthService,
-    },
-  ],
-  exports: [IHealthService],
+  providers: [HealthService],
 })
 export class HealthModule {}

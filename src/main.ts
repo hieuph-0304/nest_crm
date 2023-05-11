@@ -6,16 +6,16 @@ import { AppExceptionFilter } from './filters/http-exception.filter';
 import { AppModule } from './modules/app.module';
 import { ApiException } from './utils/exception';
 
-import { ILoggerService } from './modules/global/logger/logger.adapter';
-import { ISecretsService } from './modules/global/secrets/secrets.adapter';
 import { ExceptionInterceptor } from './interceptors/http-exception.interceptor';
+import { LoggerService } from './modules/global/logger/logger.service';
+import { SecretsService } from './modules/global/secrets/secrets.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     bufferLogs: true,
   });
 
-  const loggerService = app.get(ILoggerService);
+  const loggerService = app.get(LoggerService);
 
   app.useGlobalFilters(new AppExceptionFilter(loggerService));
   app.useGlobalInterceptors(
@@ -23,11 +23,11 @@ async function bootstrap() {
     new LogAxiosErrorInterceptor(),
   );
 
-  const { ENV, PORT } = app.get(ISecretsService);
+  const { ENV, PORT } = app.get(SecretsService);
 
   app.useLogger(loggerService);
 
-  app.setGlobalPrefix('api', {
+  app.setGlobalPrefix('api/v1', {
     exclude: [
       { path: 'health', method: RequestMethod.GET },
       { path: 'health-error', method: RequestMethod.GET },

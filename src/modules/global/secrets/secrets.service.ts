@@ -1,10 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 
-import { ISecretsService } from './secrets.adapter';
-
 @Injectable()
-export class SecretsService extends ConfigService implements ISecretsService {
+export class SecretsService extends ConfigService {
   constructor() {
     super();
   }

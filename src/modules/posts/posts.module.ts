@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { PostController } from './post.controller';
 import { PostService } from './post.service';
 import { Post } from 'src/entities/post.entity';
@@ -16,4 +16,7 @@ import { IPostService } from './post.adapter';
   ],
   exports: [IPostService],
 })
-export class PostModule {}
+export class PostModule {
+  public configure(consumer: MiddlewareConsumer) {
+  }
+}

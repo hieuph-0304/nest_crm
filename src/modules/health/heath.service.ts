@@ -6,12 +6,10 @@ import { Meeting } from 'src/entities/meeting.entity';
 import { Task } from 'src/entities/task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { ApiException } from 'src/utils/exception';
-
-import { ILoggerService } from '../global/logger/logger.adapter';
-import { IHealthService } from './health.adapter';
+import { LoggerService } from '../global/logger/logger.service';
 
 @Injectable()
-export class HealthService implements IHealthService {
+export class HealthService {
   constructor(
     @InjectRepository(Employee)
     private readonly employeeRepository: Repository<Employee>,
@@ -20,7 +18,7 @@ export class HealthService implements IHealthService {
     @InjectRepository(Task) private readonly taskRepository: Repository<Task>,
     @InjectRepository(Meeting)
     private readonly mettingRepository: Repository<Meeting>,
-    private readonly loggerService: ILoggerService,
+    private readonly loggerService: LoggerService,
   ) {}
 
   async getText(): Promise<string> {
