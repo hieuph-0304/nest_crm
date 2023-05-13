@@ -7,6 +7,7 @@ import {
   Param,
   Post,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { CreatePostDto } from './dto/create-post-dto';
 import { Response } from 'src/common/response';
@@ -20,12 +21,16 @@ import {
 } from '@nestjs/swagger';
 import { Post as PostEntity } from 'src/entities/post.entity';
 import { ApiException } from 'nestjs-error-handler';
-import { IPostService } from './post.adapter';
+import { PostsService } from './posts.service';
+import { RolesGuard } from 'src/common/gaurds/roles.gaurd';
+import { Role } from 'src/common/constants';
+import { Roles } from 'src/common/decorators/roles.decorator';
 
 @ApiTags('posts')
+@UseGuards(RolesGuard)
 @Controller('posts')
-export class PostController {
-  constructor(private readonly postService: IPostService<PostEntity>) {}
+export class PostsController {
+  constructor(private readonly postService: PostsService) {}
 
   @ApiOkResponse({ type: PostEntity, isArray: true })
   @Get()
@@ -37,6 +42,7 @@ export class PostController {
   }
 
   @ApiCreatedResponse({ type: PostEntity })
+  @Roles(Role.ADMIN)
   @Post()
   async create(@Body() data: CreatePostDto) {
     return await this.postService.createPost(data);
@@ -61,6 +67,7 @@ export class PostController {
   }
 
   @Delete(':id')
+  @Roles(Role.ADMIN)
   async delete(@Param('id') id: string) {
     return await this.postService.deletePostById(id);
   }

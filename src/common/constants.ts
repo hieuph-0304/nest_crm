@@ -24,3 +24,8 @@ export const HTTP_STATUS = {
 export enum TIME_ZONE {
   ASIA_TOKYO = 'Asia/Tokyo',
 }
+
+export enum Role {
+  USER = "user",
+  ADMIN = "admin",
+}

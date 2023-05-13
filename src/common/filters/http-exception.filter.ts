@@ -6,14 +6,14 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import * as moment from 'moment-timezone';
-import { HTTP_STATUS } from '../common/constants';
-import { ApiException, ErrorModel } from '../utils/exception';
+import { HTTP_STATUS } from '../constants';
+import { ApiException, ErrorModel } from '../../utils/exception';
 
 import { LoggerService } from 'src/modules/global/logger/logger.service';
 
 @Catch()
 export class AppExceptionFilter implements ExceptionFilter {
-  constructor(private readonly loggerService: LoggerService) {}
+  constructor(private readonly loggerService: LoggerService) { }
 
   catch(exception: ApiException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
