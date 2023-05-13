@@ -13,7 +13,7 @@ import { LoggerService } from 'src/modules/global/logger/logger.service';
 
 @Catch()
 export class AppExceptionFilter implements ExceptionFilter {
-  constructor(private readonly loggerService: LoggerService) { }
+  constructor(private readonly loggerService: LoggerService) {}
 
   catch(exception: ApiException, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();

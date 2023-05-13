@@ -26,6 +26,6 @@ export enum TIME_ZONE {
 }
 
 export enum Role {
-  USER = "user",
-  ADMIN = "admin",
+  USER = 'user',
+  ADMIN = 'admin',
 }

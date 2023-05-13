@@ -6,16 +6,17 @@ import { JwtAuthGaurd } from './jwt-auth.gaurd';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
-  
+
   @UseGuards(LocalAuthGaurd)
   @Post('login')
   async login(@Request() req) {
-    return this.authService.login(req.user)
+    return this.authService.login(req.user);
   }
 
   @UseGuards(JwtAuthGaurd)
   @Get('protected')
-  async protected(@Request() req) { // TODO: require an Beaber token, validate token
+  async protected(@Request() req) {
+    // TODO: require an Beaber token, validate token
     return req.user;
   }
 }

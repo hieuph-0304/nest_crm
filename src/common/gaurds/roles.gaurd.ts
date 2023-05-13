@@ -4,14 +4,14 @@ import { Role } from '../constants';
 
 @Injectable()
 export class RolesGuard implements CanActivate {
-  constructor(private reflector: Reflector) { }
+  constructor(private reflector: Reflector) {}
 
   canActivate(context: ExecutionContext) {
     // get roles
     const roles = this.reflector.getAllAndOverride<Role[]>('roles', [
       context.getHandler(),
-      context.getClass()
-    ])
+      context.getClass(),
+    ]);
 
     console.log(roles);
 
@@ -23,8 +23,8 @@ export class RolesGuard implements CanActivate {
 
     const user = {
       name: 'Marius',
-      roles: [Role.USER]
-    }
-    return roles.some(role => user.roles.includes(role));
+      roles: [Role.USER],
+    };
+    return roles.some((role) => user.roles.includes(role));
   }
 }

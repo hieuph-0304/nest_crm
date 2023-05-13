@@ -15,6 +15,6 @@ import { Users1Module } from './users1/users1.module';
     HealthModule,
     GlobalModule,
     TypeOrmModule.forRoot(MysqlDataSource.options),
-  ]
+  ],
 })
 export class AppModule {}

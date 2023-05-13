@@ -9,8 +9,6 @@ import { ApiException } from './utils/exception';
 import { ExceptionInterceptor } from './common/interceptors/http-exception.interceptor';
 import { LoggerService } from './modules/global/logger/logger.service';
 import { SecretsService } from './modules/global/secrets/secrets.service';
-import * as session from 'express-session';
-import * as passport from 'passport';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
