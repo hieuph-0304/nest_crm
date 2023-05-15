@@ -1,26 +1,3 @@
-export const HTTP_STATUS = {
-  ECONNREFUSED: 'Connection Refused',
-  '400': 'Bad Request',
-  '401': 'Unauthorized',
-  '403': 'Forbidden',
-  '404': 'Not Found',
-  '405': 'Method Not Allowed',
-  '406': 'Not Acceptable',
-  '408': 'Request Timeout',
-  '413': 'Payload Too Large',
-  '414': 'URI Too Long',
-  '422': 'Unprocessable Entity',
-  '428': 'Precondition Required',
-  '429': 'Too Many Requests',
-  '500': 'Internal Server Error',
-  '501': 'Not Implemented',
-  '502': 'Bad Gateway',
-  '503': 'Service Unavailable',
-  '504': 'Gateway Timeout',
-  '507': 'Insufficient Storage',
-  '508': 'Loop Detected',
-};
-
 export enum TIME_ZONE {
   ASIA_TOKYO = 'Asia/Tokyo',
 }
@@ -28,4 +5,14 @@ export enum TIME_ZONE {
 export enum Role {
   USER = 'user',
   ADMIN = 'admin',
+}
+
+export const CHECK_ABILITY = 'check_ability';
+
+export enum ACTION {
+  MANAGE = 'manage', // wildcard for any action
+  CREATE = 'create',
+  READ = 'read',
+  UPDATE = 'update',
+  DELETE = 'delete',
 }

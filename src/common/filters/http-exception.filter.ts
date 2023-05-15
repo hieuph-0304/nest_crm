@@ -6,7 +6,6 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import * as moment from 'moment-timezone';
-import { HTTP_STATUS } from '../constants';
 import { ApiException, ErrorModel } from '../../utils/exception';
 
 import { LoggerService } from 'src/modules/global/logger/logger.service';
@@ -37,7 +36,7 @@ export class AppExceptionFilter implements ExceptionFilter {
       error: {
         code,
         traceId: exception.uuid,
-        message: HTTP_STATUS[String(code)] || exception.message,
+        message: exception.message,
         timestamp: moment(new Date()).tz(process.env.TZ).format(),
         path: request.url,
       },

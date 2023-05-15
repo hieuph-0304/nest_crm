@@ -23,11 +23,12 @@ import { Post as PostEntity } from 'src/entities/post.entity';
 import { ApiException } from 'nestjs-error-handler';
 import { PostsService } from './posts.service';
 import { RolesGuard } from 'src/common/gaurds/roles.gaurd';
-import { Role } from 'src/common/constants';
+import { ACTION, Role } from 'src/common/constants';
 import { Roles } from 'src/common/decorators/roles.decorator';
+import { CheckAbilities } from 'src/common/decorators/ability.decorator';
+import { AbilitiesGaurd } from 'src/common/gaurds/ability.gaurd';
 
 @ApiTags('posts')
-@UseGuards(RolesGuard)
 @Controller('posts')
 export class PostsController {
   constructor(private readonly postService: PostsService) {}
@@ -42,6 +43,7 @@ export class PostsController {
   }
 
   @ApiCreatedResponse({ type: PostEntity })
+  @UseGuards(RolesGuard)
   @Roles(Role.ADMIN)
   @Post()
   async create(@Body() data: CreatePostDto) {
@@ -62,12 +64,16 @@ export class PostsController {
   }
 
   @Put(':id')
+  @UseGuards(AbilitiesGaurd)
+  @CheckAbilities({
+    action: ACTION.UPDATE,
+    subject: PostEntity,
+  })
   async update(@Param('id') id: string, @Body() data: UpdatePostDto) {
     return await this.postService.updatePostById(id, data);
   }
 
   @Delete(':id')
-  @Roles(Role.ADMIN)
   async delete(@Param('id') id: string) {
     return await this.postService.deletePostById(id);
   }

@@ -5,16 +5,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { MysqlDataSource } from '../database/database.config';
 import { GlobalModule } from './global/global.module';
 import { AuthModule } from './auth/auth.module';
-import { Users1Module } from './users1/users1.module';
+import { AbilityModule } from './ability/ability.module';
 
 @Module({
   imports: [
     AuthModule,
-    Users1Module,
     PostsModule,
     HealthModule,
     GlobalModule,
     TypeOrmModule.forRoot(MysqlDataSource.options),
+    AbilityModule,
   ],
 })
 export class AppModule {}
