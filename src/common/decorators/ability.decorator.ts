@@ -1,7 +1,7 @@
 import { SetMetadata } from '@nestjs/common';
-import { Subjects } from '../../modules/ability/ability.factory';
 import { ACTION, CHECK_ABILITY } from '../constants';
 import { Post } from 'src/entities/post.entity';
+import { Subjects } from 'src/modules/ability/types';
 
 export interface RequiredRule {
   action: ACTION;

@@ -2,13 +2,11 @@ import { Injectable } from '@nestjs/common';
 import {
   AbilityBuilder,
   ExtractSubjectType,
-  InferSubjects,
   createMongoAbility,
 } from '@casl/ability';
 import { ACTION } from 'src/common/constants';
 import { Post } from 'src/entities/post.entity';
-
-export type Subjects = InferSubjects<typeof Post> | 'all';
+import { Subjects } from './types';
 
 @Injectable()
 export class AbilityFactory {
