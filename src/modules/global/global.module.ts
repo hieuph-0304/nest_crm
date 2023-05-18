@@ -1,7 +1,7 @@
 import { Global, Module } from '@nestjs/common';
 
-import { SecretsModule } from './secrets/secrets.module';
 import { LoggerModule } from './logger/logger.module';
+import { SecretsModule } from './secrets/secrets.module';
 
 @Global()
 @Module({

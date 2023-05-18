@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne } from 'typeorm';
+
 import { Base } from './base.entity';
 import { Employee } from './employee.entity';
 

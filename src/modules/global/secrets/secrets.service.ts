@@ -9,4 +9,6 @@ export class SecretsService extends ConfigService {
 
   ENV = this.get<string>('ENV');
   PORT = this.get<number>('PORT');
+  ACCESS_TOKEN_SECRET = this.get<string>('ACCESS_TOKEN_SECRET');
+  REFRESH_TOKEN_SECRET = this.get<string>('REFRESH_TOKEN_SECRET');
 }

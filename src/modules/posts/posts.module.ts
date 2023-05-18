@@ -1,8 +1,9 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
-import { PostsController } from './posts.controller';
-import { PostsService } from './posts.service';
-import { Post } from 'src/entities/post.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
+
+import { PostsService } from './posts.service';
+import { Post } from '../../entities/post.entity';
+import { PostsController } from './posts.controller';
 import { AbilityModule } from '../ability/ability.module';
 
 @Module({

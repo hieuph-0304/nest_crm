@@ -7,10 +7,11 @@ import {
   OneToMany,
   OneToOne,
 } from 'typeorm';
+
 import { Base } from './base.entity';
-import { ContactInfo } from './contact-info.entity';
 import { Task } from './task.entity';
 import { Meeting } from './meeting.entity';
+import { ContactInfo } from './contact-info.entity';
 
 @Entity({
   name: 'employee',

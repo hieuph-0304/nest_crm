@@ -1,22 +1,54 @@
-import { Controller, Get, Post, Request, UseGuards } from '@nestjs/common';
-import { LocalAuthGaurd } from './local-auth.gaurd';
+import {
+  Body,
+  Controller,
+  HttpCode,
+  HttpStatus,
+  Post,
+  UseGuards,
+} from '@nestjs/common';
+
 import { AuthService } from './auth.service';
-import { JwtAuthGaurd } from './jwt-auth.gaurd';
+import { AuthDto } from './dto';
+import { Tokens } from './types';
+import {
+  GetCurrentUser,
+  GetCurrentUserId,
+  Public,
+} from 'src/common/decorators';
+import { RefreshTokenGuard } from 'src/common/gaurds';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private authService: AuthService) {}
 
-  @UseGuards(LocalAuthGaurd)
-  @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  @Public()
+  @Post('local/signup')
+  @HttpCode(HttpStatus.CREATED)
+  signupLocal(@Body() dto: AuthDto): Promise<Tokens> {
+    return this.authService.signupLocal(dto);
   }
 
-  @UseGuards(JwtAuthGaurd)
-  @Get('protected')
-  async protected(@Request() req) {
-    // TODO: require an Beaber token, validate token
-    return req.user;
+  @Public()
+  @Post('local/signin')
+  @HttpCode(HttpStatus.OK)
+  signinLocal(@Body() dto: AuthDto): Promise<Tokens> {
+    return this.authService.signinLocal(dto);
+  }
+
+  @Post('logout')
+  @HttpCode(HttpStatus.OK)
+  logout(@GetCurrentUserId() userId: string): Promise<boolean> {
+    return this.authService.logout(userId);
+  }
+
+  @Public()
+  @UseGuards(RefreshTokenGuard)
+  @Post('refresh')
+  @HttpCode(HttpStatus.OK)
+  refreshTokens(
+    @GetCurrentUserId() userId: string,
+    @GetCurrentUser('refreshToken') refreshToken: string,
+  ): Promise<Tokens> {
+    return this.authService.refreshTokens(userId, refreshToken);
   }
 }

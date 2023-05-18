@@ -6,9 +6,9 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import * as moment from 'moment-timezone';
-import { ApiException, ErrorModel } from '../../utils/exception';
 
-import { LoggerService } from 'src/modules/global/logger/logger.service';
+import { ApiException, ErrorModel } from '../../utils/exception';
+import { LoggerService } from '../../modules/global/logger/logger.service';
 
 @Catch()
 export class AppExceptionFilter implements ExceptionFilter {

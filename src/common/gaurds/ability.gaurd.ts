@@ -1,4 +1,3 @@
-import { AbilityFactory } from '../../modules/ability/ability.factory';
 import {
   CanActivate,
   ExecutionContext,
@@ -6,9 +5,11 @@ import {
   Injectable,
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
-import { RequiredRule } from '../decorators/ability.decorator';
 import { ForbiddenError } from '@casl/ability';
+
 import { CHECK_ABILITY } from '../constants';
+import { RequiredRule } from '../decorators/ability.decorator';
+import { AbilityFactory } from '../../modules/ability/ability.factory';
 
 @Injectable()
 export class AbilitiesGaurd implements CanActivate {

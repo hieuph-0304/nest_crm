@@ -1,5 +1,6 @@
 import { ConsoleLogger, Injectable } from '@nestjs/common';
-import { ApiException } from 'src/utils/exception';
+
+import { ApiException } from '../../../utils/exception';
 
 @Injectable()
 export class LoggerService extends ConsoleLogger {

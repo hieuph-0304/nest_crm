@@ -9,24 +9,26 @@ import {
   Put,
   UseGuards,
 } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post-dto';
-import { Response } from 'src/common/response';
-import { Paging } from 'src/common/paging';
-import { UpdatePostDto } from './dto/update-post-dto';
 import {
   ApiCreatedResponse,
   ApiNotFoundResponse,
   ApiOkResponse,
   ApiTags,
 } from '@nestjs/swagger';
-import { Post as PostEntity } from 'src/entities/post.entity';
 import { ApiException } from 'nestjs-error-handler';
+
+import { Paging } from '../../common/paging';
+import { Response } from '../../common/response';
+import { UpdatePostDto } from './dto/update-post-dto';
+import { CreatePostDto } from './dto/create-post-dto';
+
 import { PostsService } from './posts.service';
-import { RolesGuard } from 'src/common/gaurds/roles.gaurd';
-import { ACTION, Role } from 'src/common/constants';
-import { Roles } from 'src/common/decorators/roles.decorator';
-import { CheckAbilities } from 'src/common/decorators/ability.decorator';
-import { AbilitiesGaurd } from 'src/common/gaurds/ability.gaurd';
+import { ACTION, Role } from '../../common/constants';
+import { Post as PostEntity } from '../../entities/post.entity';
+import { RolesGuard } from '../../common/gaurds/roles.gaurd';
+import { AbilitiesGaurd } from '../../common/gaurds/ability.gaurd';
+import { Roles } from '../../common/decorators/roles.decorator';
+import { CheckAbilities } from '../../common/decorators/ability.decorator';
 
 @ApiTags('posts')
 @Controller('posts')

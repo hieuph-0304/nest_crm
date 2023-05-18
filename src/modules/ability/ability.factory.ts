@@ -4,9 +4,10 @@ import {
   ExtractSubjectType,
   createMongoAbility,
 } from '@casl/ability';
-import { ACTION } from 'src/common/constants';
-import { Post } from 'src/entities/post.entity';
+
 import { Subjects } from './types';
+import { ACTION } from '../../common/constants';
+import { Post } from '../../entities/post.entity';
 
 @Injectable()
 export class AbilityFactory {
