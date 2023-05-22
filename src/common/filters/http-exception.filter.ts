@@ -7,6 +7,7 @@ import {
 } from '@nestjs/common';
 import * as moment from 'moment-timezone';
 
+import { TIME_ZONE } from '../constants';
 import { ApiException, ErrorModel } from '../../utils/exception';
 import { LoggerService } from '../../modules/global/logger/logger.service';
 
@@ -37,7 +38,7 @@ export class AppExceptionFilter implements ExceptionFilter {
         code,
         traceId: exception.uuid,
         message: exception.message,
-        timestamp: moment(new Date()).tz(process.env.TZ).format(),
+        timestamp: moment(new Date()).tz(TIME_ZONE.ASIA_TOKYO).format(),
         path: request.url,
       },
     };

@@ -17,13 +17,12 @@ import {
 } from '@nestjs/swagger';
 import { ApiException } from 'nestjs-error-handler';
 
-import { Paging } from '../../common/paging';
-import { Response } from '../../common/response';
+import { PostsService } from './posts.service';
+import { Paging } from '../../utils/paging';
+import { Response } from '../../utils/response';
+import { ACTION, Role } from '../../common/constants';
 import { UpdatePostDto } from './dto/update-post-dto';
 import { CreatePostDto } from './dto/create-post-dto';
-
-import { PostsService } from './posts.service';
-import { ACTION, Role } from '../../common/constants';
 import { Post as PostEntity } from '../../entities/post.entity';
 import { RolesGuard } from '../../common/gaurds/roles.gaurd';
 import { AbilitiesGaurd } from '../../common/gaurds/ability.gaurd';

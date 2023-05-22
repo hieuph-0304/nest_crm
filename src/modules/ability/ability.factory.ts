@@ -1,9 +1,9 @@
-import { Injectable } from '@nestjs/common';
 import {
   AbilityBuilder,
   ExtractSubjectType,
   createMongoAbility,
 } from '@casl/ability';
+import { Injectable } from '@nestjs/common';
 
 import { Subjects } from './types';
 import { ACTION } from '../../common/constants';

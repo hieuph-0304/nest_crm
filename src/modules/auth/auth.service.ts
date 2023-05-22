@@ -1,12 +1,12 @@
 import * as argon from 'argon2';
 import { JwtService } from '@nestjs/jwt';
+import { IsNull, Not, Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import { AuthDto } from './dto';
 import { JwtPayload, Tokens } from './types';
-import { User } from 'src/entities/user.entity';
-import { InjectRepository } from '@nestjs/typeorm';
-import { IsNull, Not, Repository } from 'typeorm';
+import { User } from '../../entities/user.entity';
 import { SecretsService } from '../global/secrets/secrets.service';
 
 @Injectable()
@@ -77,7 +77,7 @@ export class AuthService {
       email: email,
     };
 
-    const [at, rt] = await Promise.all([
+    const [access_token, refresh_token] = await Promise.all([
       this.jwtService.signAsync(jwtPayload, {
         secret: this.secretService.ACCESS_TOKEN_SECRET,
         expiresIn: '15m',
@@ -89,8 +89,8 @@ export class AuthService {
     ]);
 
     return {
-      access_token: at,
-      refresh_token: rt,
+      access_token,
+      refresh_token,
     };
   }
 }

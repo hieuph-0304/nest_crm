@@ -1,5 +1,5 @@
-import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 
 import { PostsService } from './posts.service';
 import { Post } from '../../entities/post.entity';

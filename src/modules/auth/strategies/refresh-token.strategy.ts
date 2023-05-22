@@ -4,7 +4,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { ForbiddenException, Injectable } from '@nestjs/common';
 
 import { JwtPayload, JwtPayloadWithRefreshToken } from '../types';
-import { SecretsService } from 'src/modules/global/secrets/secrets.service';
+import { SecretsService } from '../../../modules/global/secrets/secrets.service';
 
 @Injectable()
 export class RefreshTokenStrategy extends PassportStrategy(
